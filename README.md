@@ -1,5 +1,13 @@
 # The Sparky Sundevil template
 
-The ASU SparkySunDevil Resume Template on LaTeX is a meticulously crafted and visually captivating solution designed to enhance your professional profile. This innovative template combines the power and flexibility of LaTeX, a typesetting system renowned for its elegance and precision, with the distinctive style and branding of Arizona State University's beloved mascot, Sparky the Sun Devil.
+This is a Latex template for the ASU Sparky Sundevil Resume available now on [Overleaf](https://www.overleaf.com/latex/templates/asu-resume-template/jtwpddspxjtm)
 
-This resume template is thoughtfully curated to provide a dynamic and engaging platform for presenting your skills, qualifications, and experiences to potential employers or academic institutions. The template's attention-grabbing design elements and intuitive layout ensure that your resume stands out from the crowd, leaving a lasting impression on recruiters and decision-makers.
+Designing the perfect resume can be daunting, but with a meticulously written template on Latex, you can now focus entirely on your content, while leaving the formatting worries behind.
+
+You can find the original docx version here: https://career.engineering.asu.edu/resumesandresources/resumes/
+
+You are welcome to contribute code to this repository. Future versions/improvements will be published to Overleaf in increments.
+- Fork this repository.
+- Update your code.
+- Open a pull request
+- Get it approved and merged.
