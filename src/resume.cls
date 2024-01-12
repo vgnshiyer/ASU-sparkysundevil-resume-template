@@ -4,12 +4,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{resume}[2023/03/18 v0.1 Resume class]
+\ProvidesClass{resume}[2023/01/11 v0.2 Resume class]
 
 \LoadClass[11pt,letterpaper]{article} % Font size and paper type
 
-% set document margins
-\usepackage[left=0.5 in,top=0.4in,right=0.5in,bottom=0.4in]{geometry}
+\usepackage[left=0.5in,top=0.4in,right=0.5in,bottom=0.4in]{geometry} % set document margins
 \usepackage[parfill]{parskip} % Remove paragraph indentation
 
 \usepackage{keycommand}

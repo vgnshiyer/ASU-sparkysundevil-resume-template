@@ -1,0 +1,44 @@
+{
+    "name": "latex-dev",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "service": "vscode",
+    "runServices": [
+        "vscode"
+    ],
+    "shutdownAction": "stopCompose",
+    "workspaceFolder": "/workspace",
+    "postCreateCommand": "",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "james-yu.latex-workshop",
+                "mhutchie.git-graph"
+            ],
+            "settings": {
+                "files.eol": "\n",
+                "latex-workshop.chktex.enabled": true,
+                "latex-workshop.latex.clean.subfolder.enabled": true,
+                "latex-workshop.latex.autoClean.run": "onBuilt",
+                "editor.formatOnSave": true,
+                "files.associations": {
+                    "*.tex": "latex"
+                },
+                "latex-workshop.latexindent.path": "latexindent",
+                "latex-workshop.latexindent.args": [
+                    "-c",
+                    "%DIR%/",
+                    "%TMPFILE%",
+                    "-y=defaultIndent: '%INDENT%'"
+                ],
+                "[latex]": {
+                    "editor.rulers": [
+                        72
+                    ],
+                    "rewrap.autoWrap.enabled": true
+                }
+            }
+        }
+    }
+}
