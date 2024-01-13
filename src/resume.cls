@@ -165,15 +165,15 @@
     {%
         \bf \commandkey{category}:
     } {%
-        \commandkey{skills}
+        \commandkey{skills}%
     }%
 }%
 
 % ------------------------------------
 
 % -------------- Experience -------------
-\newenvironment{experienceSection}[1]{
-    \sectionTitle{#1}
+\newenvironment{experienceSection}[1]{%
+    \sectionTitle{#1}%
     \begin{list}{}{ % List for each highlight in the section
         \setlength{\leftmargin}{0em} % Margin within the section
     }%
