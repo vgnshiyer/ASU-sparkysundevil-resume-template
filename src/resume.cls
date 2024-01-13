@@ -28,6 +28,9 @@
 
 \pagestyle{empty}
 
+% -------------- README --------------
+% Visit https://github.com/vgnshiyer/ASU-sparkysundevil-resume-template for comprehensive documenation.
+
 % ------------ Utilities ------------
 
 \def \separator {
