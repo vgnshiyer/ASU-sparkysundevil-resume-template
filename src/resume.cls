@@ -23,7 +23,7 @@
 
 % Load the fontspec package to set the font
 \usepackage[scaled]{helvet} % Load the Helvetica font
-\renewcommand\familydefault{\sfdefault} % Set the default font family to sans-serif
+\renewcommand\familydefault{\sfdefault} % Set the  font family to sans-serif
 \usepackage[T1]{fontenc} % Use the T1 font encoding to ensure proper character rendering
 
 \pagestyle{empty}
@@ -42,76 +42,58 @@
 }
 
 \newkeycommand{\introduction}[
-    fullname=default,
-    email=default,
-    phone=default,
-    linkedin=default,
-    github=default
-]{
-    \begin{center}
-        \printNameTitle{\commandkey{fullname}}
-        {
-            \expandafter\ifstrequal\expandafter{phone}{default}{}
-            {
-                \commandkey{phone}
-                \expandafter\ifstrequal\expandafter{email}{default}
-                {
-                    \expandafter\ifstrequal\expandafter{linkedin}{default}
-                    {
-                        \expandafter\ifstrequal\expandafter{github}{default}
-                        {
+    fullname,
+    email,
+    phone,
+    linkedin,
+    github
+]{%
+    \begin{center}%
+        \printNameTitle{\commandkey{fullname}}%
+        {%
+            \expandafter\ifstrequal\expandafter{phone}{}{}%
+            {%
+                \ifcommandkey{phone}{\commandkey{phone}}{}%
+                \expandafter\ifstrequal\expandafter{email}{}%
+                {%
+                    \expandafter\ifstrequal\expandafter{linkedin}{}%
+                    {%
+                        \expandafter\ifstrequal\expandafter{github}{}%
+                        {%
                             % empty %
-                        }{\separator}
-                    }{\separator}
-                }{\separator}
-            }
-            \expandafter\ifstrequal\expandafter{email}{default}{}
-            {
-                \email{\commandkey{email}}
-                \expandafter\ifstrequal\expandafter{linkedin}{default}
-                {
-                    \expandafter\ifstrequal\expandafter{github}{default}
-                    {
+                        }{\separator}%
+                    }{\separator}%
+                }{\separator}%
+            }%
+            \expandafter\ifstrequal\expandafter{email}{}{}%
+            {%
+                \email{\commandkey{email}}%
+                \expandafter\ifstrequal\expandafter{linkedin}{}%
+                {%
+                    \expandafter\ifstrequal\expandafter{github}{}%
+                    {%
                         % empty %
-                    }{\separator}
-                }{\separator}
-            }
-            \expandafter\ifstrequal\expandafter{linkedin}{default}{}
-            {
+                    }{\separator}%
+                }{\separator}%
+            }%
+            \expandafter\ifstrequal\expandafter{linkedin}{}{}%
+            {%
                 \profilelink{\commandkey{linkedin}}
-                \expandafter\ifstrequal\expandafter{github}{default}
-                {
+                \expandafter\ifstrequal\expandafter{github}{}
+                {%
                     % empty %
-                }{\separator}
-            }
-            \expandafter\ifstrequal\expandafter{github}{default}{}
-            {
-                \profilelink{\commandkey{github}}
-            }
+                }{\separator}%
+            }%
+            \expandafter\ifstrequal\expandafter{github}{}{}%
+            {%
+                \profilelink{\commandkey{github}}%
+            }%
         }
-    \end{center}
-}
+    \end{center}%
+}%
 
-\newcommand{\email}[1]{\href{mailto:#1}{#1}}
-\newcommand{\profilelink}[1]{\href{https://#1}{#1}}
-
-\newcommand{\printWithSeparator}[1]{
-    \ifcommandkey{#1}{
-        \commandkey{#1} \separator
-        \hspace{-0.8em}
-    }{}
-}
-
-\newcommand{\printWithoutSeparator}[1]{
-    \ifcommandkey{#1}{
-        \commandkey{#1}
-    }{}
-}
-
-\newkeycommand{\introductiasdadn}[fullname, email, phone, linkedin, github, ]{
-    \printNameTitle{\commandkey{fullname}}
-    \printContactInformation
-}
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}%
+\newcommand{\profilelink}[1]{\href{https://#1}{#1}}%
 
 \newcommand{\summary}[1]{
     \textbf{\MakeUppercase{Summary}}
