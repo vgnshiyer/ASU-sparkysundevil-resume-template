@@ -28,18 +28,39 @@
 
 \pagestyle{empty}
 
+% ------------ Utilities ------------
+
 \def \separator {
-    \textbf{\Large\textbullet\hspace{-0.5em}}
+    \textbf{\Large\textbullet}
 }
 
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}%
+\newcommand{\profilelink}[1]{\href{https://#1}{#1}}%
+
+\newcommand{\isA}[1]{
+    \expandafter\ifstrequal\expandafter{#1}{default}{}{a}
+}
+
+\newcommand\sectionTitle[1]{%
+    \begingroup
+        \textbf{\MakeUppercase{#1}}
+        \vspace{0.4em}
+        \hrule
+        \vspace{-0.3em}
+    \endgroup
+}%
+
+% ------------------------------------
+
+% ------------- Header --------------
 \newcommand\printNameTitle[1]{%
     \begingroup
-    \hfill{\MakeUppercase{\Huge\bfseries #1}}\hfill
-    \break
-    \vspace{-0.5em}
-    \hrule
+        \hfill{\MakeUppercase{\Huge\bfseries #1}}\hfill
+        \break
+        \vspace{-0.5em}
+        \hrule
     \endgroup
-}
+}%
 
 \newkeycommand{\introduction}[
     fullname,
@@ -49,9 +70,9 @@
     github
 ]{%
     \begin{center}%
-        \printNameTitle{\commandkey{fullname}}%
+        \printNameTitle{\commandkey{fullname}}% Full name title
         {%
-            \expandafter\ifstrequal\expandafter{phone}{}{}%
+            \expandafter\ifstrequal\expandafter{phone}{}{}% Contact number
             {%
                 \ifcommandkey{phone}{\commandkey{phone}}{}%
                 \expandafter\ifstrequal\expandafter{email}{}%
@@ -64,8 +85,8 @@
                         }{\separator}%
                     }{\separator}%
                 }{\separator}%
-            }%
-            \expandafter\ifstrequal\expandafter{email}{}{}%
+            }% Contact number field ends here
+            \expandafter\ifstrequal\expandafter{email}{}{}% Email
             {%
                 \email{\commandkey{email}}%
                 \expandafter\ifstrequal\expandafter{linkedin}{}%
@@ -75,77 +96,119 @@
                         % empty %
                     }{\separator}%
                 }{\separator}%
-            }%
-            \expandafter\ifstrequal\expandafter{linkedin}{}{}%
+            }% Email fields ends here
+            \expandafter\ifstrequal\expandafter{linkedin}{}{}% Linkedin
             {%
                 \profilelink{\commandkey{linkedin}}
                 \expandafter\ifstrequal\expandafter{github}{}
                 {%
                     % empty %
                 }{\separator}%
-            }%
-            \expandafter\ifstrequal\expandafter{github}{}{}%
+            }% Linkedin field ends here
+            \expandafter\ifstrequal\expandafter{github}{}{}% Github
             {%
                 \profilelink{\commandkey{github}}%
-            }%
+            }% Github field ends here
         }
     \end{center}%
 }%
 
-\newcommand{\email}[1]{\href{mailto:#1}{#1}}%
-\newcommand{\profilelink}[1]{\href{https://#1}{#1}}%
+% -----------------------------------
 
-\newcommand{\summary}[1]{
-    \textbf{\MakeUppercase{Summary}}
-    \vspace{0.4em}
-    \hrule
-    \vspace{-0.3em}
+% ------------ Summary --------------
+\newcommand{\summary}[1]{%
+    \sectionTitle{Summary}%
     #1
-}
+}%
 
-\newcommand{\education}{
-    \textbf{\MakeUppercase{Education}}
-    \vspace{0.4em}
-    \hrule
-    \vspace{-0.3em}
-}
+% -----------------------------------
 
-\newkeycommand{\educationItem}[university,college,program,graduation,grade,coursework]{
-{\bf \commandkey{program}} \hfill {Graduating \commandkey{graduation}} \\
-{\commandkey{university}} \hfill \ifcommandkey{grade}{\commandkey{grade}}{} \\
-\ifcommandkey{college}{\commandkey{college}}{} \\
-\ifcommandkey{coursework}{Relevant coursework: \commandkey{coursework}}{}
-}
+% ------------ Education ------------
+\newkeycommand{\education}[
+    university,
+    college,
+    program,
+    graduation,
+    grade,
+    coursework
+]{%
+    \sectionTitle{Education}%
+    {% line 1
+        \bf \commandkey{program}%
+    } \hfill {%
+        Graduating \commandkey{graduation}%
+    } \\ % line end (\\ --> denotes new line)
+    {% line 2
+        \commandkey{university}%
+    } \hfill \ifcommandkey{grade}{% Grade field is optional (Can be left empty)
+        \commandkey{grade}%
+    }{} \\ % line end
+    {% line 3
+        \commandkey{college}
+    } \\ % line end
+    {% line 4
+        Relevant coursework: \commandkey{coursework}%
+    } % line end
+}%
 
-\newcommand{\skills}{
-    \textbf{\MakeUppercase{Technical skills}}
-    \vspace{0.4em}
-    \hrule
-    \vspace{-0.3em}
-}
+% ------------------------------------
 
-\newkeycommand{\skillItem}[category, skills]{
-    {\bf \commandkey{category}:} {\commandkey{skills}}
-}
+% -------------- Skills --------------
+\newenvironment{skillsSection}[1]{%
+    \sectionTitle{#1}%
+}%
 
-\newenvironment{workSection}[1]{
-    \textbf{\MakeUppercase{#1}}
-    \vspace{0.4em}
-    \hrule
-    \vspace{-0.3em}
-    \begin{list}{}{ % List for each individual item in the section
-            \setlength{\leftmargin}{0em} % Margin within the section
-        }
-        \item[]
-              }{
-    \end{list}
-}
+\newkeycommand{\skillItem}[
+    category,
+    skills
+]{%
+    {%
+        \bf \commandkey{category}:
+    } {%
+        \commandkey{skills}
+    }%
+}%
 
-\newkeycommand{\experienceItem}[company, position, location, duration]{
-    \textbf{\commandkey{company}, \commandkey{location}: \commandkey{position}} \hfill {\commandkey{duration}}
-}
+% ------------------------------------
 
-\newkeycommand{\customItem}[title, duration, keyHighlight]{
-    \textbf{\commandkey{title}} \hfill {\commandkey{duration}} \\
-    \ifcommandkey{keyHighlight}{\commandkey{keyHighlight}}{}
-}
+% -------------- Experience -------------
+\newenvironment{experienceSection}[1]{
+    \sectionTitle{#1}
+    \begin{list}{}{ % List for each highlight in the section
+        \setlength{\leftmargin}{0em} % Margin within the section
+    }%
+        \item[]%
+    }{%
+    \end{list}%
+}%
+
+\newkeycommand{\experienceItem}[
+    company,
+    position,
+    location,
+    duration
+]{%
+    \textbf{%
+        \commandkey{company},
+        \commandkey{location}:
+        \commandkey{position}
+    } \hfill {%
+        \commandkey{duration}%
+    }%
+    \vspace{-0.5em}%
+}%
+
+% ---------------------------------------
+
+% ----------------- Project -------------
+\newkeycommand{\projectItem}[title, duration, keyHighlight]{%
+    \textbf{%
+        \commandkey{title}%
+    } \hfill {%
+        \commandkey{duration}%
+    } \\ {%
+        \commandkey{keyHighlight}%
+    }%
+}%
+
+% ----------------------------------------
