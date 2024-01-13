@@ -11,6 +11,7 @@
 \usepackage[left=0.5in,top=0.4in,right=0.5in,bottom=0.4in]{geometry} % set document margins
 \usepackage[parfill]{parskip} % Remove paragraph indentation
 
+\usepackage{etoolbox}
 \usepackage{keycommand}
 \usepackage{xstring}
 \usepackage{hyperref}
@@ -27,7 +28,9 @@
 
 \pagestyle{empty}
 
-\def \separator {\textbf{\Large\textbullet}}
+\def \separator {
+    \textbf{\Large\textbullet\hspace{-0.5em}}
+}
 
 \newcommand\printNameTitle[1]{%
     \begingroup
@@ -38,35 +41,74 @@
     \endgroup
 }
 
-\newcommand{\printContactInformation}{%
-  \vspace{-0.3em} % remove vertical space above
-  \begin{center}
-    \ifcommandkey{phone}{%
-        \commandkey{phone}%
-        \ifcommandkey{email}{ \separator\ }%
-            {\ifcommandkey{linkedin}{ \separator\ }%
-                {\ifcommandkey{github}{ \separator\ }%
-                    {}}}%
-    }{}%
-    \ifcommandkey{email}{%
-        \email{\commandkey{email}}%
-            \ifcommandkey{linkedin}{ \separator\ }%
-                {\ifcommandkey{github}{ \separator\ }}%
-    }{}%
-    \ifcommandkey{linkedin}{%
-            \profilelink{\commandkey{linkedin}}%
-            \ifcommandkey{github}{ \separator\ }{}%
-    }{}%
-    \ifcommandkey{github}{%
-        \profilelink{\commandkey{github}}%
-    }{}%
-  \end{center}
+\newkeycommand{\introduction}[
+    fullname=default,
+    email=default,
+    phone=default,
+    linkedin=default,
+    github=default
+]{
+    \begin{center}
+        \printNameTitle{\commandkey{fullname}}
+        {
+            \expandafter\ifstrequal\expandafter{phone}{default}{}
+            {
+                \commandkey{phone}
+                \expandafter\ifstrequal\expandafter{email}{default}
+                {
+                    \expandafter\ifstrequal\expandafter{linkedin}{default}
+                    {
+                        \expandafter\ifstrequal\expandafter{github}{default}
+                        {
+                            % empty %
+                        }{\separator}
+                    }{\separator}
+                }{\separator}
+            }
+            \expandafter\ifstrequal\expandafter{email}{default}{}
+            {
+                \email{\commandkey{email}}
+                \expandafter\ifstrequal\expandafter{linkedin}{default}
+                {
+                    \expandafter\ifstrequal\expandafter{github}{default}
+                    {
+                        % empty %
+                    }{\separator}
+                }{\separator}
+            }
+            \expandafter\ifstrequal\expandafter{linkedin}{default}{}
+            {
+                \profilelink{\commandkey{linkedin}}
+                \expandafter\ifstrequal\expandafter{github}{default}
+                {
+                    % empty %
+                }{\separator}
+            }
+            \expandafter\ifstrequal\expandafter{github}{default}{}
+            {
+                \profilelink{\commandkey{github}}
+            }
+        }
+    \end{center}
 }
 
 \newcommand{\email}[1]{\href{mailto:#1}{#1}}
 \newcommand{\profilelink}[1]{\href{https://#1}{#1}}
 
-\newkeycommand{\introduction}[fullname,email,phone,linkedin,github,]{
+\newcommand{\printWithSeparator}[1]{
+    \ifcommandkey{#1}{
+        \commandkey{#1} \separator
+        \hspace{-0.8em}
+    }{}
+}
+
+\newcommand{\printWithoutSeparator}[1]{
+    \ifcommandkey{#1}{
+        \commandkey{#1}
+    }{}
+}
+
+\newkeycommand{\introductiasdadn}[fullname, email, phone, linkedin, github, ]{
     \printNameTitle{\commandkey{fullname}}
     \printContactInformation
 }
@@ -87,10 +129,10 @@
 }
 
 \newkeycommand{\educationItem}[university,college,program,graduation,grade,coursework]{
-    {\bf \commandkey{program}} \hfill {Graduating \commandkey{graduation}} \\
-    {\commandkey{university}} \hfill \ifcommandkey{grade}{\commandkey{grade}}{} \\
-    \ifcommandkey{college}{\commandkey{college}}{} \\
-    \ifcommandkey{coursework}{Relevant coursework: \commandkey{coursework}}{}
+{\bf \commandkey{program}} \hfill {Graduating \commandkey{graduation}} \\
+{\commandkey{university}} \hfill \ifcommandkey{grade}{\commandkey{grade}}{} \\
+\ifcommandkey{college}{\commandkey{college}}{} \\
+\ifcommandkey{coursework}{Relevant coursework: \commandkey{coursework}}{}
 }
 
 \newcommand{\skills}{
@@ -105,16 +147,16 @@
 }
 
 \newenvironment{workSection}[1]{
-  \textbf{\MakeUppercase{#1}}
-  \vspace{0.4em}
-  \hrule
-  \vspace{-0.3em}
-  \begin{list}{}{ % List for each individual item in the section
-    \setlength{\leftmargin}{0em} % Margin within the section
-  }
-  \item[]
-}{
-  \end{list}
+    \textbf{\MakeUppercase{#1}}
+    \vspace{0.4em}
+    \hrule
+    \vspace{-0.3em}
+    \begin{list}{}{ % List for each individual item in the section
+            \setlength{\leftmargin}{0em} % Margin within the section
+        }
+        \item[]
+              }{
+    \end{list}
 }
 
 \newkeycommand{\experienceItem}[company, position, location, duration]{
