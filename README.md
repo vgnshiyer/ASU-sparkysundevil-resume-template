@@ -1,8 +1,9 @@
 # The Sparky Sundevil template
 
-This is a Latex template for the ASU Sparky Sundevil Resume available now on [Overleaf](https://www.overleaf.com/latex/templates/asu-resume-template/jtwpddspxjtm).
+This is a Latex template for the ASU Sparky Sundevil Resume.
 
 <!-- Badges -->
+[![](https://img.shields.io/badge/Overleaf-Open%20in%20Overleaf-brightgreen)](https://www.overleaf.com/latex/templates/asu-resume-template/jtwpddspxjtm)
 [![](https://badgen.net/github/license/vgnshiyer/ASU-sparkysundevil-resume-template)](https://github.com/vgnshiyer/ASU-sparkysundevil-resume-template/blob/master/LICENSE)
 [![](https://img.shields.io/badge/Follow-vgnshiyer-0A66C2?logo=linkedin)](https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=vgnshiyer)
 
