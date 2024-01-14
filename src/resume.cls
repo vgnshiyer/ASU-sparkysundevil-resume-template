@@ -127,7 +127,11 @@
 % -----------------------------------
 
 % ------------ Education ------------
-\newkeycommand{\education}[
+\newenvironment{educationSection}[1]{%
+    \sectionTitle{#1}%
+}%
+
+\newkeycommand{\educationItem}[
     university,
     college,
     program,
@@ -135,12 +139,11 @@
     grade,
     coursework
 ]{%
-    \sectionTitle{Education}%
     {% line 1
         \bf \commandkey{program}%
     } \hfill {%
         Graduating \commandkey{graduation}%
-    } \\ % line end (\\ --> denotes new line)
+    } \\ % line end
     {% line 2
         \commandkey{university}%
     } \hfill \ifcommandkey{grade}{% Grade field is optional (Can be left empty)
@@ -151,7 +154,7 @@
     } \\ % line end
     {% line 4
         Relevant coursework: \commandkey{coursework}%
-    } % line end
+    }% line end
 }%
 
 % ------------------------------------
@@ -169,7 +172,7 @@
         \bf \commandkey{category}:
     } {%
         \commandkey{skills}%
-    }%
+    }
 }%
 
 % ------------------------------------
@@ -197,7 +200,7 @@
         \commandkey{position}
     } \hfill {%
         \commandkey{duration}%
-    }%
+    }
     \vspace{-0.5em}%
 }%
 
@@ -211,7 +214,7 @@
         \commandkey{duration}%
     } \\ {%
         \commandkey{keyHighlight}%
-    }%
+    }
 }%
 
 % ----------------------------------------

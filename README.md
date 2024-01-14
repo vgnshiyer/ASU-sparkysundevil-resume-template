@@ -107,20 +107,22 @@ The Linkedin field will be removed from the header.
 In you `.tex` file, add the `education` command as below.
 
 ```tex
-\education[
-    university={Arizona State University, Tempe, AZ},
-    college={Barrett, The Honors College},
-    graduation={May 2020},
-    grade={3.82 GPA},
-    program={B.S.E., Mechanical Engineering},
-    coursework={Hardware Design Languages and Programmable Logic, Advanced Excel in Business},
-]
+\begin{educationSection}{Education}
+    \educationItem[
+        university={Arizona State University, Tempe, AZ},
+        college={Barrett, The Honors College},
+        graduation={May 2020},
+        grade={3.82 GPA},
+        program={B.S.E., Mechanical Engineering},
+        coursework={Hardware Design Languages and Programmable Logic, Advanced Excel in Business},
+    ]
+\end{educationSection}
 ```
 
 Similary, as the previous section, if you want to omit certain items, you would have to follow a similar process. 
 
 ```tex
-\newkeycommand{\education}[
+\newkeycommand{\educationItem}[
     university,
     college,
     program,
@@ -128,7 +130,6 @@ Similary, as the previous section, if you want to omit certain items, you would 
     grade,
     coursework
 ]{%
-    \sectionTitle{Education}%
     {% line 1
         \bf \commandkey{program}%
     } \hfill {%
@@ -140,11 +141,11 @@ Similary, as the previous section, if you want to omit certain items, you would 
         \commandkey{grade}%
     }{} \\ % line end
     % {% line 3
-    %     \commandkey{college}    <--- Like this
+    %     \commandkey{college}  <--- Like this
     % } \\ % line end
     {% line 4
         Relevant coursework: \commandkey{coursework}%
-    } % line end
+    }% line end
 }%
 ```
 
@@ -219,6 +220,28 @@ Below is how to include Personal Projects / Extra curricular activities using th
     \end{itemize}
 ```
 
+## Help
+
+### Known Issues
+
+1. Having a line with content which is not large enough to fill the entire line, leaves an empty space on the right. 
+
+For instance,
+<img src="static/1.1.png" alt="example 1.1" />
+
+**Workaround:** Add a newline `\\` at the end of the item. To compensate with the extra space created, add a `\vspace{-15pt}` on the next section/item.
+
+```tex
+        grade={8.67 CGPA},
+        program={BE, Information Technology},
+    ] \\ %  <--- New line
+\end{educationSection}
+
+% --------- Skills -----------
+\vspace{-15pt} %  <--- vspace
+\begin{skillsSection}{Technical Skills}
+```
+
 ## Contributing
 
 Thank you for considering contributing to this project! Your help is greatly appreciated.
@@ -242,6 +265,10 @@ If you encounter a bug, have a feature request, or want to discuss something rel
 4️⃣ Push your changes and open a Pull Request to `main`.
 
 *Please provide a clear title and description of your changes.*
+
+## Bonus
+
+Here is my edit of the Sparky Sundevil Resume template which I use for my applications.<br> Click [here](https://www.overleaf.com/read/vpssybqpwcsy#276ccc)
 
 ## Version History
 
