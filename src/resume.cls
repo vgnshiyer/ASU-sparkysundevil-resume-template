@@ -70,7 +70,8 @@
     email,
     phone,
     linkedin,
-    github
+    github,
+    location
 ]{%
     \begin{center}%
         \printNameTitle{\commandkey{fullname}}% Full name title
@@ -112,6 +113,9 @@
             {%
                 \profilelink{\commandkey{github}}%
             }% Github field ends here
+            {%
+                \profilelink{\commandkey{location}}%
+            }%
         }
     \end{center}%
 }%
