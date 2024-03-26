@@ -27,7 +27,7 @@ This template is inspired by the original docx version which can be found [here]
 
 There are two ways to use this template.
 
-#### 1. Using an Online Latex editor like [Overleaf](https://www.overleaf.com/latex/templates/asu-resume-template/jtwpddspxjtm).
+#### 1. Quickstart: Using an Online Latex editor like [Overleaf](https://www.overleaf.com/latex/templates/asu-resume-template/jtwpddspxjtm).
 
 #### 2. Using the [Remote Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers) pluggin. 
 ***Recommended for development***
