@@ -208,9 +208,14 @@
 % ---------------------------------------
 
 % ----------------- Project -------------
-\newkeycommand{\projectItem}[title, duration, keyHighlight]{%
+\newkeycommand{\projectItem}[title, duration, keyHighlight, link]{%
     \textbf{%
-        \commandkey{title}%
+        \edef\tempLink{\commandkey{link}}% Store the link (for some reason, checks on \commandkey{link} is not working)
+        \ifx\tempLink\@empty
+            \commandkey{title}% Print plain title
+        \else
+            \underline{\href{\commandkey{link}}{\commandkey{title}}} % Print the title as a hyperlink
+        \fi
     } \hfill {%
         \commandkey{duration}%
     } \\ {%
