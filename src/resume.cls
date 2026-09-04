@@ -38,7 +38,7 @@
 }
 
 \newcommand{\email}[1]{\href{mailto:#1}{#1}}%
-\newcommand{\profilelink}[1]{\href{https://#1}{#1}}%
+\newcommand{\httpslink}[1]{\href{https://#1}{#1}}%
 \newcommand{\phonelink}[1]{\href{tel:#1}{#1}}%
 
 \newcommand{\isA}[1]{
@@ -66,54 +66,46 @@
     \endgroup
 }%
 
+\newbool{firstheaderitem}
+\newcommand{\addheaderitem}[2][]{%
+    \expandafter\ifblank\expandafter{#2}{}{%
+        \ifbool{firstheaderitem}{%
+            \global\boolfalse{firstheaderitem}%
+        }{%
+            \ \separator\ %
+        }%
+        \ifblank{#1}{#2}{#1{#2}}%
+    }%
+}
+
 \newkeycommand{\introduction}[
     fullname,
     email,
     phone,
     linkedin,
-    github
+    git,
+    github,
+    blog
 ]{%
     \begin{center}%
         \printNameTitle{\commandkey{fullname}}% Full name title
-        {%
-            \expandafter\ifstrequal\expandafter{phone}{}{}% Contact number
-            {%
-                \ifcommandkey{phone}{\phonelink{\commandkey{phone}}}{}
-                \expandafter\ifstrequal\expandafter{email}{}%
-                {%
-                    \expandafter\ifstrequal\expandafter{linkedin}{}%
-                    {%
-                        \expandafter\ifstrequal\expandafter{github}{}%
-                        {%
-                            % empty %
-                        }{\separator}%
-                    }{\separator}%
-                }{\separator}%
-            }% Contact number field ends here
-            \expandafter\ifstrequal\expandafter{email}{}{}% Email
-            {%
-                \email{\commandkey{email}}%
-                \expandafter\ifstrequal\expandafter{linkedin}{}%
-                {%
-                    \expandafter\ifstrequal\expandafter{github}{}%
-                    {%
-                        % empty %
-                    }{\separator}%
-                }{\separator}%
-            }% Email fields ends here
-            \expandafter\ifstrequal\expandafter{linkedin}{}{}% Linkedin
-            {%
-                \profilelink{\commandkey{linkedin}}
-                \expandafter\ifstrequal\expandafter{github}{}
-                {%
-                    % empty %
-                }{\separator}%
-            }% Linkedin field ends here
-            \expandafter\ifstrequal\expandafter{github}{}{}% Github
-            {%
-                \profilelink{\commandkey{github}}%
-            }% Github field ends here
-        }
+        \global\booltrue{firstheaderitem}%
+        \edef\tempphone{\commandkey{phone}}%
+        \expandafter\addheaderitem\expandafter[\expandafter\phonelink\expandafter]\expandafter{\tempphone}%
+        \edef\tempemail{\commandkey{email}}%
+        \expandafter\addheaderitem\expandafter[\expandafter\email\expandafter]\expandafter{\tempemail}%
+        \edef\templinkedin{\commandkey{linkedin}}%
+        \expandafter\addheaderitem\expandafter[\expandafter\httpslink\expandafter]\expandafter{\templinkedin}%
+        \edef\tempgit{\commandkey{git}}%
+        \expandafter\ifblank\expandafter{\tempgit}{\edef\tempgit{\commandkey{github}}}{}%
+        \expandafter\ifblank\expandafter{\tempgit}{}{%
+            \begingroup
+                \renewcommand*{\do}[1]{\addheaderitem[\httpslink]{##1}}%
+                \expandafter\docsvlist\expandafter{\tempgit}%
+            \endgroup
+        }%
+        \edef\tempblog{\commandkey{blog}}%
+        \expandafter\addheaderitem\expandafter[\expandafter\httpslink\expandafter]\expandafter{\tempblog}%
     \end{center}%
 }%
 

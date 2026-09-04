@@ -68,37 +68,11 @@ In your `.tex` file, begin a document class with the parent class of `resume`. (
     email={sparky.sundevil@asu.edu},
     phone={602-555-1212},
     linkedin={linkedin.com/in/sparkysundevil},
-    github={github.com/sparkysundevil}
+    git={github.com/sparkysundevil, gitlab.com/sparkysundevil}
 ]
 ```
 
-If you want to ignore/omit certain items from the introduction, move over to the `Header` section in the `resume.cls` file.
-
-Simply comment the portion of the particular field which is highlighted with `field-name` --> `field-name ends here` just like shown below.
-
-```tex
-\newkeycommand{\introduction}[
-    fullname,
-    email,
-    phone,
-    linkedin,
-    github
-]{%
-    \begin{center}%
-        \printNameTitle{\commandkey{fullname}}% Full name title
-        % \expandafter\ifstrequal\expandafter{linkedin}{}{}% Linkedin field <--- Here
-        %     {%
-        %         \profilelink{\commandkey{linkedin}}
-        %         \expandafter\ifstrequal\expandafter{github}{}
-        %         {%
-        %             % empty %
-        %         }{\separator}%
-        %     }% Linkedin field ends here <--- To here
-    \end{center}%
-}%
-```
-
-The Linkedin field will be removed from the header.
+Fields like `phone`, `linkedin`, `git`, and `blog` are optional and can simply be omitted from the `\introduction` block if not needed. You can also supply a comma-separated list to `git` for multiple profiles.
 
 **Note:** Try to enclose each content inside curly braces `{}`. This helps in parsin special characters.
 
